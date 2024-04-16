@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "ES6",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": "lib",
+    "sourceMap": true,
+    "strict": true,
+    "moduleResolution": "Bundler",
+    "target": "ES6"
+  },
+  "compileOnSave": true,
+  "include": [
+    "src"
+  ]
+}
