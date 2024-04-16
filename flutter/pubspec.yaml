@@ -15,6 +15,10 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  firebase_core: ^2.26.0 # needed by other Firebase plugins
+  cloud_functions: ^4.6.9 # used for calling Firebase Functions
+  firebase_auth: ^4.17.9 # account auth via Firebase
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

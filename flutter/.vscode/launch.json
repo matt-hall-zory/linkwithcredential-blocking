@@ -1,0 +1,22 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "configurations": [
+    {
+      "name": "firebase_anon_bug (emulated firebase)",
+      "request": "launch",
+      "type": "dart",
+      "toolArgs": [
+        "--dart-define",
+        "USE_FIREBASE_EMULATOR=true",
+        "--web-port=42424"
+      ]
+    },
+    {
+      "name": "zory_app (live)",
+      "request": "launch",
+      "type": "dart",
+    },
+  ]
+}
