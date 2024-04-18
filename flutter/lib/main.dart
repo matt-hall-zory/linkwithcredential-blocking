@@ -3,15 +3,11 @@ import 'package:firebase_anon_bug/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'src/app.dart';
-import 'src/settings/settings_controller.dart';
-import 'src/settings/settings_service.dart';
 
 void main() async {
-  final settingsController = SettingsController(SettingsService());
-  await settingsController.loadSettings();
-
   // initialise core firebase plugin
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -22,7 +18,8 @@ void main() async {
     const host = 'localhost';
     FirebaseFunctions.instance.useFunctionsEmulator(host, 5001);
     await FirebaseAuth.instance.useAuthEmulator(host, 9099);
+    debugPrint("using LOCAL FIREBASE AUTH, & FUNCTIONS! ======");
   }
 
-  runApp(MyApp(settingsController: settingsController));
+  runApp(const ProviderScope(child: App()));
 }
