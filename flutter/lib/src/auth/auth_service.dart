@@ -1,7 +1,7 @@
 abstract class AuthService {
   Stream<AuthEvent> get authEventsStream;
   Future<void> signUpWithAnonymous();
-  Future<void> signUpWithPassword(String email, String password);
+  Future<void> linkAnonymousWithEmail({required String email, required String password});
   Future<void> deleteAuth();
 }
 

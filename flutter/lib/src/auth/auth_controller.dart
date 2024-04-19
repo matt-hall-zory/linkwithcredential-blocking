@@ -28,29 +28,42 @@ class AuthController extends ChangeNotifier {
   UserModel? get currentUser => _currentUser;
 
   Future<void> signUpAnonymousAuth() async {
-    _isBusy = true;
-    notifyListeners();
-
+    start();
     try {
       await _authService.signUpWithAnonymous();
     } catch (e) {
       _errorMessage = "authService.signUpWithAnonymous failed: $e";
     }
+    end();
+  }
 
-    _isBusy = false;
-    notifyListeners();
+  Future<void> linkAnonymousAuthWithEmail({required String email, required String password}) async {
+    start();
+    try {
+      await _authService.linkAnonymousWithEmail(email: email, password: password);
+    } catch (e) {
+      _errorMessage = "authService.linkAnonymousAuthWithEmail failed: $e";
+    }
+    end();
   }
 
   Future<void> deleteAuth() async {
-    _isBusy = true;
-    notifyListeners();
-
+    start();
     try {
       await _authService.deleteAuth();
     } catch (e) {
       _errorMessage = "authService.deleteAuth failed: $e";
     }
+    end();
+  }
 
+  void start() {
+    _errorMessage = null;
+    _isBusy = true;
+    notifyListeners();
+  }
+
+  void end() {
     _isBusy = false;
     notifyListeners();
   }

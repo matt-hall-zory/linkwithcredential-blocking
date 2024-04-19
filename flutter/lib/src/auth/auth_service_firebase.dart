@@ -12,7 +12,7 @@ class AuthServiceFirebase implements AuthService {
   Stream<AuthEvent> get authEventsStream => _authEventsStreamController.stream;
 
   AuthServiceFirebase(this._firebaseAuth) {
-    _firebaseAuth.authStateChanges().listen((User? firebaseUser) {
+    _firebaseAuth.userChanges().listen((User? firebaseUser) {
       if (firebaseUser == null) {
         debugPrint('Firebase user has signed out');
         _authEventsStreamController.add(AuthEventSignedOut());
@@ -44,8 +44,22 @@ class AuthServiceFirebase implements AuthService {
   }
 
   @override
-  Future<void> signUpWithPassword(String email, String password) {
-    throw UnimplementedError();
+  Future<void> linkAnonymousWithEmail({required String email, required String password}) async {
+    try {
+      // 1. create credential with the email/password
+      final emailCredential = EmailAuthProvider.credential(email: email, password: password);
+
+      // 2. link email/password credential with current user
+      // THIS IS THE LINE THAT TRIGGERS THE BUG
+      final userCredential = await _firebaseAuth.currentUser?.linkWithCredential(emailCredential);
+
+      debugPrint("Linked anonymous account with email:$userCredential");
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        default:
+          throw Exception("unknown error:${e.code}\n${e.message}");
+      }
+    }
   }
 
   @override

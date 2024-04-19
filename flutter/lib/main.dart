@@ -18,6 +18,7 @@ void main() async {
     const host = 'localhost';
     FirebaseFunctions.instance.useFunctionsEmulator(host, 5001);
     await FirebaseAuth.instance.useAuthEmulator(host, 9099);
+    await Future.delayed(const Duration(milliseconds: 500)); // ensure emulator is connected
     debugPrint("using LOCAL FIREBASE AUTH, & FUNCTIONS! ======");
   }
 
